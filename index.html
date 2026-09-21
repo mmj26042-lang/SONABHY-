@@ -199,7 +199,7 @@
   <footer>SONABHY — Espace employés</footer>
 
   <script>
-    const CODE_VALIDE = "4821";
+    const CODE_VALIDE = "4021";
     const form = document.getElementById("form");
     const input = document.getElementById("code");
     const error = document.getElementById("err");
@@ -208,7 +208,6 @@
       event.preventDefault();
 
       if (input.value.trim() === CODE_VALIDE) {
-        // La page de bienvenue se trouve dans le même dépôt.
         window.location.href = "bienvenue.html";
       } else {
         error.textContent = "Code incorrect. Vérifiez le code reçu par e-mail.";
