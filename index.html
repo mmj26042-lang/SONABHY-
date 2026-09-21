@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Accès SONABHY</title>
+  <title>Espace employés SONABHY</title>
   <style>
     :root {
       --bg: #f6f4ef;
@@ -15,6 +15,7 @@
       --green-dark: #146b2e;
       --red: #d62828;
       --yellow: #f4b400;
+      --blue: #cfe6f2;
     }
 
     * { box-sizing: border-box; }
@@ -23,161 +24,195 @@
       margin: 0;
       min-height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
       background: var(--bg);
-      font-family: Arial, sans-serif;
       color: var(--text);
-      padding: 24px;
+      font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
     }
 
-    .container {
+    .flag {
+      height: 8px;
+      background: linear-gradient(90deg, #d62828 0 33.33%, #f4b400 33.33% 66.66%, #1b8a3d 66.66% 100%);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      max-width: 720px;
       width: 100%;
-      max-width: 480px;
-      padding: 32px 28px;
-      background: var(--card);
+      margin: 0 auto;
+      padding: 16px 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+
+    .logo-mark {
+      width: 14px;
+      height: 34px;
+      border-radius: 2px;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+    }
+
+    .logo-mark i:nth-child(1) { background: #d62828; }
+    .logo-mark i:nth-child(2) { background: #f4b400; }
+    .logo-mark i:nth-child(3) { background: #1b8a3d; }
+
+    .sub {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 20px 24px;
+    }
+
+    .hero {
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
       border: 1px solid var(--line);
-      border-radius: 14px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--blue), #cdd3c4);
+      color: #333c45;
+      font-weight: 700;
       text-align: center;
     }
 
+    .panel {
+      margin-top: 18px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--card);
+    }
+
     h1 {
-      margin: 0 0 10px;
-      color: var(--green);
-      font-size: clamp(1.8rem, 2vw, 2.4rem);
+      margin: 0 0 6px;
+      font-size: 1.5rem;
+      line-height: 1.25;
     }
 
     p {
+      margin: 0 0 14px;
       color: var(--muted);
-      margin: 0 0 18px;
-      font-size: 1rem;
     }
 
-    .hidden {
-      display: none;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 700;
     }
 
     input {
       width: 100%;
       padding: 12px 14px;
-      font-size: 1rem;
       border: 2px solid var(--line);
       border-radius: 8px;
-      background: #fff;
+      background: var(--bg);
       color: var(--text);
-      text-align: center;
-      letter-spacing: 0.08em;
+      font: inherit;
+      font-size: 1.1rem;
+      letter-spacing: 0.12em;
     }
 
-    input:focus {
-      outline: 3px solid rgba(244, 180, 0, 0.45);
-      border-color: var(--yellow);
+    input:focus-visible, button:focus-visible {
+      outline: 3px solid var(--yellow);
+      outline-offset: 2px;
     }
 
     button {
-      padding: 12px 16px;
-      border: none;
+      width: 100%;
+      margin-top: 14px;
+      padding: 13px;
+      border: 0;
       border-radius: 8px;
       background: var(--green);
-      color: white;
-      font-weight: 700;
-      font-size: 1rem;
+      color: #fff;
       cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    button:hover {
-      background: var(--green-dark);
-    }
-
-    .message {
-      min-height: 24px;
-      margin-top: 14px;
+      font: inherit;
       font-weight: 700;
+    }
+
+    button:hover { background: var(--green-dark); }
+
+    .error {
+      min-height: 1.4em;
+      margin: 10px 0 0;
       color: var(--red);
-    }
-
-    .welcome-card {
-      display: none;
-      text-align: center;
-    }
-
-    .welcome-card.active {
-      display: block;
-    }
-
-    .welcome-title {
-      color: var(--green);
-      margin: 0 0 18px;
-      font-size: clamp(1.8rem, 2vw, 2.5rem);
-    }
-
-    .welcome-text {
-      font-size: clamp(1.1rem, 2vw, 1.5rem);
-      line-height: 1.6;
-      color: var(--text);
-      margin: 0;
-    }
-
-    .date-box {
-      display: inline-block;
-      margin-top: 20px;
-      background: var(--yellow);
-      color: #000;
-      padding: 12px 18px;
-      border-radius: 8px;
       font-weight: 700;
-      font-size: 1.1rem;
+    }
+
+    footer {
+      max-width: 720px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 20px 20px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <main class="container">
-    <section id="loginBox">
-      <h1>SONABHY</h1>
-      <p>Veuillez saisir votre code employé.</p>
+  <div class="flag"></div>
 
-      <form id="formulaire" novalidate>
-        <input type="text" id="code" placeholder="Entrez votre code" maxlength="10" autocomplete="off" />
-        <button type="submit">Valider</button>
+  <header>
+    <div class="logo" aria-label="SONABHY">
+      <div class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></div>
+      <span>SONABHY</span>
+    </div>
+    <span class="sub">Espace employés</span>
+  </header>
+
+  <main>
+    <div class="hero">Bienvenue dans l’espace employé</div>
+
+    <section class="panel">
+      <h1>Accès à l'espace</h1>
+      <p>Saisissez le code employé que vous avez reçu par e-mail.</p>
+
+      <form id="form" autocomplete="off">
+        <label for="code">Code employé</label>
+        <input id="code" name="code" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="10" placeholder="Code" required>
+        <p class="error" id="err" role="alert"></p>
+        <button type="submit">Entrer</button>
       </form>
-
-      <p id="message" class="message" aria-live="polite"></p>
-    </section>
-
-    <section id="welcomeBox" class="welcome-card" aria-live="polite">
-      <h1 class="welcome-title">Bienvenue, Mme TAMINI Annita R. H. !</h1>
-      <p class="welcome-text">Rendez-vous le 24 septembre, munie de ce code.</p>
-      <div class="date-box">24 septembre</div>
     </section>
   </main>
 
+  <footer>SONABHY — Espace employés</footer>
+
   <script>
-    const codeValide = "4821";
-    const form = document.getElementById("formulaire");
-    const loginBox = document.getElementById("loginBox");
-    const welcomeBox = document.getElementById("welcomeBox");
-    const message = document.getElementById("message");
+    const CODE_VALIDE = "4821";
+    const form = document.getElementById("form");
+    const input = document.getElementById("code");
+    const error = document.getElementById("err");
 
     form.addEventListener("submit", function (event) {
       event.preventDefault();
 
-      const codeSaisi = document.getElementById("code").value.trim();
-
-      if (codeSaisi === codeValide) {
-        loginBox.classList.add("hidden");
-        welcomeBox.classList.add("active");
-        message.textContent = "";
+      if (input.value.trim() === CODE_VALIDE) {
+        // La page de bienvenue se trouve dans le même dépôt.
+        window.location.href = "bienvenue.html";
       } else {
-        message.textContent = "Code incorrect. Veuillez réessayer.";
-        document.getElementById("code").focus();
+        error.textContent = "Code incorrect. Vérifiez le code reçu par e-mail.";
+        input.select();
       }
     });
   </script>
