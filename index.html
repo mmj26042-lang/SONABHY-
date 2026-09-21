@@ -1,3 +1,30 @@
+<div style="text-align:center; margin-top:50px;">
+  <input type="text" id="codeInput" placeholder="Entrez votre code" style="padding:8px; font-size:16px;">
+  <button onclick="verifierCode()" style="padding:8px 16px; font-size:16px;">Valider</button>
+  <p id="resultat" style="margin-top:20px; font-size:18px;"></p>
+</div>
+
+<script>
+  const codes = {
+    "4821": {
+      nom: "Mme TAMINI",
+      date: "24 Septembre",
+      message: "Rendez-vous le 24 Septembre muni de ce code."
+    }
+    // Vous pourrez ajouter d'autres personnes ici, ex :
+    // "1234": { nom: "M. DUPONT", date: "25 Septembre", message: "..." }
+  };
+
+  function verifierCode() {
+    const saisi = document.getElementById("codeInput").value.trim();
+    const resultat = document.getElementById("resultat");
+    if (codes[saisi]) {
+      resultat.textContent = "Bienvenue " + codes[saisi].nom + ". " + codes[saisi].message;
+    } else {
+      resultat.textContent = "Code incorrect.";
+    }
+  }
+</script>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
