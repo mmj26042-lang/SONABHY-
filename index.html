@@ -33,7 +33,7 @@
 
     .container {
       width: 100%;
-      max-width: 420px;
+      max-width: 480px;
       padding: 32px 28px;
       background: var(--card);
       border: 1px solid var(--line);
@@ -52,6 +52,10 @@
       color: var(--muted);
       margin: 0 0 18px;
       font-size: 1rem;
+    }
+
+    .hidden {
+      display: none;
     }
 
     form {
@@ -99,32 +103,78 @@
       font-weight: 700;
       color: var(--red);
     }
+
+    .welcome-card {
+      display: none;
+      text-align: center;
+    }
+
+    .welcome-card.active {
+      display: block;
+    }
+
+    .welcome-title {
+      color: var(--green);
+      margin: 0 0 18px;
+      font-size: clamp(1.8rem, 2vw, 2.5rem);
+    }
+
+    .welcome-text {
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      line-height: 1.6;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .date-box {
+      display: inline-block;
+      margin-top: 20px;
+      background: var(--yellow);
+      color: #000;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
   </style>
 </head>
 <body>
   <main class="container">
-    <h1>SONABHY</h1>
-    <p>Veuillez saisir votre code employé.</p>
+    <section id="loginBox">
+      <h1>SONABHY</h1>
+      <p>Veuillez saisir votre code employé.</p>
 
-    <form id="formulaire" novalidate>
-      <input type="text" id="code" placeholder="Entrez votre code" maxlength="10" autocomplete="off" />
-      <button type="submit">Valider</button>
-    </form>
+      <form id="formulaire" novalidate>
+        <input type="text" id="code" placeholder="Entrez votre code" maxlength="10" autocomplete="off" />
+        <button type="submit">Valider</button>
+      </form>
 
-    <p id="message" class="message" aria-live="polite"></p>
+      <p id="message" class="message" aria-live="polite"></p>
+    </section>
+
+    <section id="welcomeBox" class="welcome-card" aria-live="polite">
+      <h1 class="welcome-title">Bienvenue, Mme TAMINI Annita R. H. !</h1>
+      <p class="welcome-text">Rendez-vous le 24 septembre, munie de ce code.</p>
+      <div class="date-box">24 septembre</div>
+    </section>
   </main>
 
   <script>
     const codeValide = "4821";
+    const form = document.getElementById("formulaire");
+    const loginBox = document.getElementById("loginBox");
+    const welcomeBox = document.getElementById("welcomeBox");
+    const message = document.getElementById("message");
 
-    document.getElementById("formulaire").addEventListener("submit", function (event) {
+    form.addEventListener("submit", function (event) {
       event.preventDefault();
 
       const codeSaisi = document.getElementById("code").value.trim();
-      const message = document.getElementById("message");
 
       if (codeSaisi === codeValide) {
-        window.location.href = "bienvenue.html";
+        loginBox.classList.add("hidden");
+        welcomeBox.classList.add("active");
+        message.textContent = "";
       } else {
         message.textContent = "Code incorrect. Veuillez réessayer.";
         document.getElementById("code").focus();
